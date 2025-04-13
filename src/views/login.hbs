@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+        href="https://www.nitj.ac.in//images/ico/apple-touch-icon-144-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+        href="https://www.nitj.ac.in//images/ico/apple-touch-icon-114-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+        href="https://www.nitj.ac.in//images/ico/apple-touch-icon-72-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed"
+        href="https://www.nitj.ac.in//images/ico/apple-touch-icon-57-precomposed.png" />
+    <link rel="shortcut icon" href="https://www.nitj.ac.in//images/ico/favicon.ico" />
+	
+	<title>SignIn / SignUp - IT Resource Bank</title>
+	<link rel="stylesheet" href="css/loginPage.css">
+</head>
+<body>
+	<h1 class="heading">INFORMATION TECHNOLOGY <br> RESOURCE BANK</h1>
+	<div class="box">
+		<form id="loginForm" autocomplete="on">
+			<h2>Sign up / Sign in</h2>
+			<input id="problem" value="{{problem}}" hidden />
+			<div id="inputBox1" class="inputBox">
+				<input id="receiversMail" name="mail" type="email" value="{{username}}" required="required"/>
+				<span id="uname">Username</span>
+				{{!-- <span>Enter yout NITJ Domain ID.</span> --}}
+				<i></i>
+			</div>
+			<p class="error_msg" id="error_box_user"></p>
+			<div id="inputBox1" class="inputBox">
+				<input id="receiversPass" name="pass" type="password" required="required"/>
+				<span id="uname">Password</span>
+				<i></i>
+			</div>
+			<p class="error_msg" id="error_box_pass"></p>
+			<button id="next">Next</button>
+			<a id="FGPassword" href="" style="font-size: 0.75em; margin-top: 10px; text-align:right">Forgot Password?</a>
+		</form>
+	</div>
+	<div>
+		
+	</div>
+	<script src="js/login.js"></script>
+	<script>
+		document.getElementById("receiversMail").addEventListener("focus", function() {
+  		document.getElementById("receiversMail").placeholder = "Enter your NITJ E-Mail ID";
+		});
+
+		document.getElementById("receiversMail").addEventListener("blur", function() {
+  		document.getElementById("receiversMail").placeholder = "";
+		});
+
+		document.getElementById("receiversPass").addEventListener("focus", function() {
+  		document.getElementById("receiversPass").placeholder = "Enter new/existing Password";
+		});
+
+		document.getElementById("receiversPass").addEventListener("blur", function() {
+  		document.getElementById("receiversPass").placeholder = "";
+		});
+	</script>
+</body>
+</html>
