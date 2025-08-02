@@ -8,7 +8,7 @@
     "dev": "nodemon src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Kshitiz Yadav",
+  "author": "Rohit Sharma",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
