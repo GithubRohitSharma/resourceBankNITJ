@@ -2,7 +2,7 @@
 
 A comprehensive web application for the IT department of NIT Jalandhar, providing centralized access to academic resources, course materials, and administrative tools.
 
-🔗 **Live Project**: [Click here to view](https://resource-bank-nitj.vercel.app/)  
+🔗 **Live Project**: [Click here to view](https://resourcebanknitj.onrender.com/)  
 📦 **GitHub Repo**: [GithubRohitSharma/resourceBankNITJ](https://github.com/GithubRohitSharma/resourceBankNITJ)
 
 ---
