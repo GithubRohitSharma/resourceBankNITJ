@@ -140,12 +140,11 @@ function createBallAnimation() {
             ball.style.transition = 'all 0.7s cubic-bezier(0.18, 0.89, 0.32, 1.28)';
             ball.style.top = '-100px';
             
-            // Check if both data sets are loaded
-            if (facultyData && schedulesData) {
-                console.log("All data already loaded, revealing site");
+            // Reveal site immediately after bounce animation
+            setTimeout(function() {
+                console.log("Ball animation complete, revealing site");
                 revealSite();
-            }
-            // Otherwise wait for completion
+            }, 700); // Wait for bounce animation to complete
         }, 300);
     });
     
@@ -165,80 +164,36 @@ function createBallAnimation() {
         // Prefetch critical images
         preloadCriticalImages();
         
-        // Load faculty data
+        // Load faculty data in background (non-blocking)
         fetch('/get-teachers')
             .then(response => response.json())
             .then(data => {
                 console.log("Faculty data loaded:", data.length, "items");
                 facultyData = data;
-                
-                // If ball was already clicked and schedules are also loaded, reveal site
-                if (wasClicked && schedulesData) {
-                    console.log("Faculty loaded, schedules already loaded, revealing site");
-                    revealSite();
+                // Update faculty display if site is already revealed
+                if (facultyData) {
+                    displayFaculty(facultyData);
                 }
             })
             .catch(error => {
                 console.error("Error loading faculty data:", error);
-                // Do not set fallback data, just keep waiting
-                // Try again after a delay
-                setTimeout(() => {
-                    console.log("Retrying faculty data load");
-                    fetch('/get-teachers')
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log("Faculty data loaded on retry:", data.length, "items");
-                            facultyData = data;
-                            
-                            // If ball was already clicked and schedules are also loaded, reveal site
-                            if (wasClicked && schedulesData) {
-                                console.log("Faculty loaded on retry, revealing site");
-                                revealSite();
-                            }
-                        })
-                        .catch(error => {
-                            console.error("Error loading faculty data on retry:", error);
-                            // Still no fallback, will rely on emergency timeout
-                        });
-                }, 3000);
+                facultyData = []; // Set empty fallback
             });
         
-        // Load schedules data
+        // Load schedules data in background (non-blocking)
         fetch('/get-schedules')
             .then(response => response.json())
             .then(data => {
                 console.log("Schedules data loaded:", data.length, "items");
                 schedulesData = data;
-                
-                // If ball was already clicked and faculty is also loaded, reveal site
-                if (wasClicked && facultyData) {
-                    console.log("Schedules loaded, faculty already loaded, revealing site");
-                    revealSite();
+                // Update schedules display if site is already revealed
+                if (schedulesData) {
+                    displaySchedules(schedulesData);
                 }
             })
             .catch(error => {
                 console.error("Error loading schedules data:", error);
-                // Do not set fallback data, just keep waiting
-                // Try again after a delay
-                setTimeout(() => {
-                    console.log("Retrying schedules data load");
-                    fetch('/get-schedules')
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log("Schedules data loaded on retry:", data.length, "items");
-                            schedulesData = data;
-                            
-                            // If ball was already clicked and faculty is also loaded, reveal site
-                            if (wasClicked && facultyData) {
-                                console.log("Schedules loaded on retry, revealing site");
-                                revealSite();
-                            }
-                        })
-                        .catch(error => {
-                            console.error("Error loading schedules data on retry:", error);
-                            // Still no fallback, will rely on emergency timeout
-                        });
-                }, 3000);
+                schedulesData = []; // Set empty fallback
             });
     }
     
@@ -275,12 +230,12 @@ function createBallAnimation() {
         // Mark as visited
         sessionStorage.setItem('visited', 'true');
         
-        // Make sure to display the real content before revealing
-        if (facultyData) {
+        // Display content if available (non-blocking)
+        if (facultyData && facultyData.length > 0) {
             displayFaculty(facultyData);
         }
         
-        if (schedulesData) {
+        if (schedulesData && schedulesData.length > 0) {
             displaySchedules(schedulesData);
         }
         
