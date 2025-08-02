@@ -743,6 +743,6 @@ app.post("/admin/update-faculty/:fileId", authAdmin, upload.single('file'), asyn
     }
 });
 
-app.listen(PORT, '10.10.195.252', () => {
+app.listen(PORT, () => {
     console.log("Listening to port " + PORT);
 })
