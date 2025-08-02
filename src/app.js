@@ -19,16 +19,17 @@ app.use(cookieParser())
 app.use(methodOverride('_method'));
 
 // Setting up path
-const staticPath = path.join("../public")
+const staticPath = path.join(__dirname, "../public")
 app.use(express.static(staticPath));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', "hbs");
+app.set('views', path.join(__dirname, 'views'));
 
 const upload = multer();
 
 // Setting up partials
-const partialPath = "../partials"
+const partialPath = path.join(__dirname, "../partials")
 hbs.registerPartials(partialPath);
 
 // Connecting to database
